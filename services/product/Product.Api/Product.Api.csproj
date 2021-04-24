@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\core\Zero.Core\Zero.Core.csproj" />
+    <ProjectReference Include="..\..\..\lib\eventbus\Zero.EventBus\Zero.EventBus.csproj" />
+    <ProjectReference Include="..\..\..\lib\Zero.Core\Zero.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Application\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+</Project>
