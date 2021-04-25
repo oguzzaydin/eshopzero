@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using IdentityModel;
+﻿using IdentityModel;
 using IdentityServer4.Models;
+using System.Collections.Generic;
 
 namespace Identity.Api.Configuration
 {

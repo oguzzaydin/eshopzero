@@ -9,6 +9,9 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text.Json;
+using Product.Api.Infrastructure;
+using Product.Api.Infrastructure.Seed;
+using Product.Api.Web.Extensions;
 
 var configuration = GetConfiguration();
 
@@ -19,6 +22,14 @@ try
     Log.Information("Configuring web host ({ApplicationContext})...", Program.AppName);
 
     var host = CreateHostBuilder(args);
+
+    Log.Information("Applying migrations ({ApplicationContext})...", Program.AppName);
+    host.MigrateDbContext<ProductDbContext>((context, services) =>
+    {
+        new ProductDbContextSeed()
+            .SeedAsync(context, configuration)
+            .Wait();
+    });
 
     Log.Information("Starting web host ({ApplicationContext})...", Program.AppName);
 

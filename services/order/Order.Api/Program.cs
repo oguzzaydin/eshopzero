@@ -9,6 +9,8 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text.Json;
+using Order.Api.Infrastructure;
+using Order.Api.Web.Extensions;
 
 var configuration = GetConfiguration();
 
@@ -19,6 +21,9 @@ try
     Log.Information("Configuring web host ({ApplicationContext})...", Program.AppName);
 
     var host = CreateHostBuilder(args);
+
+    Log.Information("Applying migrations ({ApplicationContext})...", Program.AppName);
+    host.MigrateDbContext<OrderDbContext>((_, _) => { });
 
     Log.Information("Starting web host ({ApplicationContext})...", Program.AppName);
 

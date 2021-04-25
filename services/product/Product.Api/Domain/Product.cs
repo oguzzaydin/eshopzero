@@ -10,6 +10,7 @@ namespace Product.Api.Domain
         public string Description { get; protected set; }
         public decimal Price { get; protected set; }
         public string PictureUrl { get; protected set; }
+        public int ProductTypeId { get; protected set; }
         public ProductType ProductType { get; protected set; }
         public int AvailableStock { get; protected set; }
 
@@ -17,13 +18,13 @@ namespace Product.Api.Domain
         {
         }
 
-        public Product(string name, string description, decimal price, string pictureUrl, ProductType productType, int availableStock)
+        public Product(string name, string description, decimal price, string pictureUrl, int productTypeId, int availableStock)
         {
             Name = name;
             Description = description;
             Price = price;
             PictureUrl = pictureUrl;
-            ProductType = productType ?? throw new ArgumentNullException(nameof(productType));
+            ProductTypeId = productTypeId;
             AvailableStock = availableStock;
         }
     }

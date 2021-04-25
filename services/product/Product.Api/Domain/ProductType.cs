@@ -10,5 +10,10 @@ namespace Product.Api.Domain
         {
             
         }
+
+        public ProductType(string name)
+        {
+            Name = name;
+        }
     }
 }
