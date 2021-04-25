@@ -38,12 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Commands\" />
-    <Folder Include="Application\DomainEventHandlers\" />
-    <Folder Include="Domain\Events\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\lib\eventbus\Zero.Eventbus.RabbitMQ\Zero.Eventbus.RabbitMQ.csproj" />
     <ProjectReference Include="..\..\..\lib\eventbus\Zero.EventBus\Zero.EventBus.csproj" />
     <ProjectReference Include="..\..\..\lib\eventbus\Zero.Eventlog\Zero.Eventlog.csproj" />

@@ -20,6 +20,7 @@ namespace Order.Api
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public ILifetimeScope Container { get; private set; }
         public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -40,12 +41,12 @@ namespace Order.Api
                 .AddOptions()
                 .AddCustomApiVersioning()
                 .AddCustomControllers()
+                .AddEventBus(Configuration)
                 .AddCustomHealtCheck(Configuration)
                 .AddCustomAuthentications(Configuration)
+                .AddStart()
                 .AddData(Configuration)
                 .AddEventLog(Configuration, "Order.Api");
-
-            services.AddEventBus(Configuration);
 
             services.Configure<GzipCompressionProviderOptions>(options =>
             {
@@ -53,6 +54,7 @@ namespace Order.Api
             });
 
             var container = new ContainerBuilder();
+            ConfigureContainer(container);
             container.Populate(services);
             return new AutofacServiceProvider(container.Build());
         }
@@ -105,6 +107,7 @@ namespace Order.Api
                     Predicate = r => r.Name.Contains("self")
                 });
             });
+            Container = app.ApplicationServices.GetAutofacRoot();
         }
     }
 }

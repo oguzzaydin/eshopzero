@@ -41,14 +41,15 @@ namespace Product.Api
                 })
                 .AddHttpContextAccessor()
                 .AddOptions()
+                .AddEventBus(Configuration)
                 .AddCustomApiVersioning()
                 .AddCustomControllers()
                 .AddCustomHealtCheck(Configuration)
                 .AddCustomAuthentications(Configuration)
                 .AddData(Configuration)
+                .AddStart()
                 .AddEventLog(Configuration, "Product.Api");
 
-            services.AddEventBus(Configuration);
 
             services.Configure<GzipCompressionProviderOptions>(options =>
             {
@@ -56,6 +57,7 @@ namespace Product.Api
             });
 
             var container = new ContainerBuilder();
+            ConfigureContainer(container);
             container.Populate(services);
             return new AutofacServiceProvider(container.Build());
         }
@@ -70,6 +72,7 @@ namespace Product.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+
             var pathBase = Configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
             {
@@ -84,9 +87,7 @@ namespace Product.Api
             }
             app.UseSubscribes();
             app.UseEventLog();
-
             app.UseApiVersioning();
-            app.UseResponseCaching();
             app.UseResponseCompression();
 
             app.UseCors(env.EnvironmentName);

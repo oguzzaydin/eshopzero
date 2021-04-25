@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Order.Api.Application.IntegrationEvents.Events;
 using Zero.EventBus.Abstractions;
 
 namespace Order.Api.Web.Extensions

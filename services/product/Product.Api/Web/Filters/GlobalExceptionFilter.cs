@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Product.Api.Domain.Exceptions;
 using ValidationException = FluentValidation.ValidationException;
 
 namespace Product.Api.Web.Filters
@@ -28,7 +29,7 @@ namespace Product.Api.Web.Filters
                 context.Exception,
                 context.Exception.Message);
 
-            if (context.Exception.GetType() == typeof(Exception))
+            if (context.Exception.GetType() == typeof(ProductDomainException))
             {
                 var problemDetails = new ValidationProblemDetails
                 {

@@ -6,6 +6,7 @@ using Autofac;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,10 @@ using Order.Api.Infrastructure;
 using Order.Api.Web.Filters;
 using Zero.Core.Repositories;
 using Zero.Core.Repositories.EntityFramework;
+using Zero.Core.Sessions;
+using Zero.Core.UnitOfWork;
 using Zero.EventBus.Abstractions;
+using ISession = Zero.Core.Sessions.ISession;
 
 namespace Order.Api.Web.Extensions
 {
@@ -172,6 +176,15 @@ namespace Order.Api.Web.Extensions
                 config.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
+            return services;
+        }
+
+
+        public static IServiceCollection AddStart(this IServiceCollection services)
+        {
+            services.AddScoped<ISession, ZeroSession>();
+            services.AddScoped<IUnitOfWork, OrderUow>();
+            
             return services;
         }
     }

@@ -20,7 +20,7 @@ namespace Zero.Eventbus.RabbitMQ
 {
     public class RabbitMqEventBus : IEventBus, IDisposable
     {
-        private const string BrokerName = "greysis_event_bus";
+        private const string BrokerName = "eshop_event_bus";
 
         private readonly IRabbitMqPersistentConnection _persistentConnection;
         private readonly ILogger<RabbitMqEventBus> _logger;
@@ -64,12 +64,12 @@ namespace Zero.Eventbus.RabbitMQ
 
         public void Publish(IntegrationEvent @event)
         {
-            Started(this, @event);
+            Started?.Invoke(this, @event);
 
             if (!_persistentConnection.IsConnected)
                 _persistentConnection.TryConnect();
 
-            var policy = RetryPolicy.Handle<BrokerUnreachableException>()
+            var policy = Policy.Handle<BrokerUnreachableException>()
                 .Or<SocketException>()
                 .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                     (ex, time) =>
@@ -81,13 +81,12 @@ namespace Zero.Eventbus.RabbitMQ
 
             var eventName = @event.GetType().Name;
 
-            _logger.LogTrace("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", @event.Id,
+            _logger.LogInformation("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", @event.Id,
                 eventName);
 
             using (var channel = _persistentConnection.CreateModel())
             {
-
-                _logger.LogTrace("Declaring RabbitMQ exchange to publish event: {EventId}", @event.Id);
+                _logger.LogInformation("Declaring RabbitMQ exchange to publish event: {EventId}", @event.Id);
 
                 channel.ExchangeDeclare(exchange: BrokerName, type: "direct");
 
@@ -99,7 +98,7 @@ namespace Zero.Eventbus.RabbitMQ
                     var properties = channel.CreateBasicProperties();
                     properties.DeliveryMode = 2; // persistent
 
-                    _logger.LogTrace("Publishing event to RabbitMQ: {EventId}", @event.Id);
+                    _logger.LogInformation("Publishing event to RabbitMQ: {EventId}", @event.Id);
 
                     channel.BasicPublish(
                         exchange: BrokerName,
@@ -107,7 +106,7 @@ namespace Zero.Eventbus.RabbitMQ
                         mandatory: true,
                         basicProperties: properties,
                         body: body);
-                    Published(this, @event);
+                    Published?.Invoke(this, @event);
                 });
             }
         }

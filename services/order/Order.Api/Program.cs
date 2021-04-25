@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text.Json;
+using Autofac.Extensions.DependencyInjection;
 using Order.Api.Infrastructure;
 using Order.Api.Web.Extensions;
 

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Zero.EventBus.Events
 {
-    public class IntegrationEvent
+    public record IntegrationEvent
     {
         public IntegrationEvent()
         {

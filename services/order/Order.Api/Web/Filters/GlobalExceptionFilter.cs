@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
+using FluentValidation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using ValidationException = FluentValidation.ValidationException;
+using Order.Api.Domain.Exceptions;
 
 namespace Order.Api.Web.Filters
 {
@@ -28,7 +28,7 @@ namespace Order.Api.Web.Filters
                 context.Exception,
                 context.Exception.Message);
 
-            if (context.Exception.GetType() == typeof(Exception))
+            if (context.Exception.GetType() == typeof(OrderDomainException))
             {
                 var problemDetails = new ValidationProblemDetails
                 {
@@ -69,25 +69,24 @@ namespace Order.Api.Web.Filters
         }
 
     }
+}
 
+public class JsonErrorResponse
+{
+    public Error[] Errors { get; set; }
+}
 
-    public class JsonErrorResponse
+public class Error
+{
+    public string Code { get; set; }
+    public string Message { get; set; }
+    public object DeveloperMessage { get; set; }
+}
+public class InternalServerErrorObjectResult : ObjectResult
+{
+    public InternalServerErrorObjectResult(object error)
+        : base(error)
     {
-        public Error[] Errors { get; set; }
-    }
-
-    public class Error
-    {
-        public string Code { get; set; }
-        public string Message { get; set; }
-        public object DeveloperMessage { get; set; }
-    }
-    public class InternalServerErrorObjectResult : ObjectResult
-    {
-        public InternalServerErrorObjectResult(object error)
-            : base(error)
-        {
-            StatusCode = StatusCodes.Status500InternalServerError;
-        }
+        StatusCode = StatusCodes.Status500InternalServerError;
     }
 }

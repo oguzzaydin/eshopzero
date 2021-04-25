@@ -22,6 +22,8 @@ using Product.Api.Infrastructure;
 using Product.Api.Web.Filters;
 using Zero.Core.Repositories;
 using Zero.Core.Repositories.EntityFramework;
+using Zero.Core.Sessions;
+using Zero.Core.UnitOfWork;
 using Zero.EventBus.Abstractions;
 
 namespace Product.Api.Web.Extensions
@@ -171,6 +173,14 @@ namespace Product.Api.Web.Extensions
                 config.ReportApiVersions = true;
                 config.DefaultApiVersion = new ApiVersion(1, 0);
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddStart(this IServiceCollection services)
+        {
+            services.AddScoped<ISession, ZeroSession>();
+            services.AddScoped<IUnitOfWork, ProductUow>();
 
             return services;
         }

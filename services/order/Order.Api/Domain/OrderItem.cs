@@ -13,11 +13,10 @@ namespace Order.Api.Domain
         {
         }
 
-        public OrderItem(int productId, int quantity, Order order)
+        public OrderItem(int productId, int quantity)
         {
             ProductId = productId;
             Quantity = quantity;
-            Order = order ?? throw new ArgumentNullException(nameof(order));
         }
     }
 }

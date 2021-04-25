@@ -10,13 +10,12 @@ namespace Zero.Eventbus.RabbitMQ
 {
     public static class EventBusExtensions
     {
-        public static void AddEventBus(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IRabbitMqPersistentConnection>(sp =>
             {
                 configuration = sp.GetRequiredService<IConfiguration>();
                 var logger = sp.GetRequiredService<ILogger<DefaultRabbitMqPersistentConnection>>();
-
 
                 var factory = new ConnectionFactory
                 {
@@ -51,6 +50,8 @@ namespace Zero.Eventbus.RabbitMQ
 
                 return new RabbitMqEventBus(rabbitMqPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, subscriptionClientName, retryCount);
             });
+
+            return services;
         }
     }
 }
