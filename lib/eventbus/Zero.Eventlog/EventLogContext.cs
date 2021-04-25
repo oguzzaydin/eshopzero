@@ -18,8 +18,6 @@ namespace Zero.Eventlog
 
         void ConfigureIntegrationEventLogEntry(EntityTypeBuilder<EventLogEntry> builder)
         {
-            builder.ToTable("IntegrationEventLog");
-
             builder.HasKey(e => e.EventId);
 
             builder.Property(e => e.EventId)

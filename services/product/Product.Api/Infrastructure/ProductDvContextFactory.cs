@@ -1,0 +1,28 @@
+﻿using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+
+namespace Product.Api.Infrastructure
+{
+    public class ProductDvContextFactory : IDesignTimeDbContextFactory<ProductDbContext>
+    {
+        public ProductDbContext CreateDbContext(string[] args)
+        {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory()))
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
+
+            var optionsBuilder = new DbContextOptionsBuilder<ProductDbContext>();
+
+            optionsBuilder.UseNpgsql(config["ConnectionString"], npgsqlOptionsAction: o =>
+            {
+                o.MigrationsAssembly("Product.Api");
+            }).UseLowerCaseNamingConvention();
+
+            return new ProductDbContext(optionsBuilder.Options);
+        }
+    }
+}

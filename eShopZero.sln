@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zero.Eventlog", "lib\eventb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zero.Core", "lib\core\Zero.Core\Zero.Core.csproj", "{19A24F2D-0F0D-4411-8B1F-48E67DF44B30}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{783215D3-544B-46D4-9679-F3C27B980E44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{19A24F2D-0F0D-4411-8B1F-48E67DF44B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19A24F2D-0F0D-4411-8B1F-48E67DF44B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19A24F2D-0F0D-4411-8B1F-48E67DF44B30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{783215D3-544B-46D4-9679-F3C27B980E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{783215D3-544B-46D4-9679-F3C27B980E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{783215D3-544B-46D4-9679-F3C27B980E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{783215D3-544B-46D4-9679-F3C27B980E44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

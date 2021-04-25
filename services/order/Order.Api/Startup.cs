@@ -9,9 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Order.Api.Extensions;
 using System;
 using System.IO.Compression;
+using Order.Api.Web.Extensions;
+using Zero.Eventbus.RabbitMQ;
+using Zero.Eventlog;
 
 namespace Order.Api
 {
@@ -33,16 +35,17 @@ namespace Order.Api
             services
                 .AddOpenApis(Configuration)
                 .AddMediator()
-                .AddResponseCompression(options =>
-                {
-                    options.Providers.Add<GzipCompressionProvider>();
-                })
+                .AddResponseCompression(options => options.Providers.Add<GzipCompressionProvider>())
                 .AddHttpContextAccessor()
                 .AddOptions()
                 .AddCustomApiVersioning()
                 .AddCustomControllers()
                 .AddCustomHealtCheck(Configuration)
-                .AddCustomAuthentications(Configuration);
+                .AddCustomAuthentications(Configuration)
+                .AddData(Configuration)
+                .AddEventLog(Configuration, "Order.Api");
+
+            services.AddEventBus(Configuration);
 
             services.Configure<GzipCompressionProviderOptions>(options =>
             {
@@ -76,9 +79,10 @@ namespace Order.Api
                 app.UseDeveloperExceptionPage();
                 app.UseOpenApis(Configuration);
             }
-
+          
+            app.UseSubscribes();
+            app.UseEventLog();
             app.UseApiVersioning();
-            app.UseResponseCaching();
             app.UseResponseCompression();
 
             app.UseCors(env.EnvironmentName);

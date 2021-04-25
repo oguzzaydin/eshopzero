@@ -1,0 +1,36 @@
+.br-wrapper {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.br-theme-bootstrap-stars .br-widget {
+  height: 28px;
+  white-space: nowrap;
+}
+.br-theme-bootstrap-stars .br-widget a {
+  font-family: "simple-line-icons";
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+}
+.br-theme-bootstrap-stars .br-widget a:after {
+  content:  "\e09b";
+  color: #d2d2d2;
+}
+
+.br-theme-bootstrap-stars .br-widget .br-current-rating {
+  display: none;
+}
+.br-theme-bootstrap-stars .br-readonly a {
+  cursor: default;
+}

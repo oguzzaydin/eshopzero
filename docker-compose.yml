@@ -1,0 +1,62 @@
+version: '3.4'
+
+services:
+  seq:
+    image: datalust/seq:latest
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    hostname: rabbit
+
+  postgresdata:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - pgconf:/etc/postgresql
+      - pglog:/var/log/postgresql
+
+  gateway:
+    image: ${DOCKER_REGISTRY-}eshopzero/gateway:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: gateway/Gateway/Dockerfile
+    depends_on: 
+     - identity-api
+     - order-api  
+     - product-api
+
+  identity-api:
+    image: ${DOCKER_REGISTRY-}eshopzero/identity-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: services/identity/Identity.Api/Dockerfile 
+    depends_on:
+      - postgresdata            
+
+  product-api:
+    image: ${DOCKER_REGISTRY-}eshopzero/product-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: services/product/Product.Api/Dockerfile
+    depends_on:
+      - identity-api 
+      - postgresdata 
+
+  order-api:
+    image: ${DOCKER_REGISTRY-}eshopzero/order-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: services/order/Order.Api/Dockerfile
+    depends_on:
+      - identity-api  
+      - postgresdata 
+
+volumes:
+  pgdata:
+    driver: local
+  pgconf:
+    driver: local
+  pglog:
+    driver: local
+      

@@ -13,6 +13,6 @@ namespace Order.Api.Infrastructure
         #endregion
 
         public DbSet<Domain.Order> Order { get; set; }
-        public DbSet<OrderItem> Type { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
     }
 }

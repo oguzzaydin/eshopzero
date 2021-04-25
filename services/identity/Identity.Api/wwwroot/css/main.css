@@ -1,0 +1,45 @@
+﻿html {
+    width: 100%;
+}
+
+body {
+    overflow-x: hidden !important;
+}
+
+body.show-spinner > main {
+    overflow: hidden !important;
+}
+
+/* Hide everything under body tag */
+body.show-spinner > * {
+    opacity: 0;
+}
+
+/* Spinner */
+body.show-spinner::after {
+    content: " ";
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    border-top-color: rgba(0, 0, 0, 0.3);
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    left: calc(50% - 15px);
+    top: calc(50% - 15px);
+    position: fixed;
+    z-index: 1;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}

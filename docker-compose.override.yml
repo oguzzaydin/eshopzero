@@ -1,0 +1,80 @@
+version: '3.4'
+
+services:
+  seq:
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5340:80"
+
+  rabbitmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"    
+  
+  postgresdata:
+    environment:
+      - POSTGRES_USER=eshopzero
+      - POSTGRES_PASSWORD=7eeb43dedd28b53b69f7cd74505b3457
+      - PGDATA=/var/lib/postgresql/data
+      - PGCONF=/etc/postgresql
+      - PGLOG=/var/log/postgresql
+    ports:
+      - 5432:5432   
+    
+  gateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - IdentityUrl=http://identity-api
+      - IdentityUrlExternal=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5201
+      - ProductUrlHC=http://product-api/hc
+      - OrderUrlHC=http://order-api/hc
+      - IdentityUrlHC=http://identity-api/hc
+      - PORT=80
+      - PATH_BASE=/gateway      
+    ports:
+      - "5200:80"
+
+  identity-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - OrderApiClient=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5202
+      - ProductApiClient=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5203
+      - Gateway=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5200
+      - GatewayClient=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5200
+      - ConnectionString=User ID=eshopzero;Password=7eeb43dedd28b53b69f7cd74505b3457;Server=postgresdata;Database=eshopzero.identity;Integrated Security=true;Pooling=true
+      - PORT=80
+      - PATH_BASE=/identity-api
+    ports:
+      - "5201:80"
+
+  order-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - PORT=80
+      - IdentityUrl=http://identity-api
+      - IdentityUrlExternal=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5201
+      - EventBusUserName=${ESHOPZERO_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${ESHOPZERO_SERVICE_BUS_PASSWORD}
+      - ConnectionString=User ID=eshopzero;Password=7eeb43dedd28b53b69f7cd74505b3457;Server=postgresdata;Database=eshopzero.order;Integrated Security=true;Pooling=true
+      - PATH_BASE=/order-api
+    ports:
+      - "5202:80"
+
+  product-api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - PORT=80
+      - IdentityUrl=http://identity-api
+      - IdentityUrlExternal=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5201
+      - EventBusUserName=${ESHOPZERO_SERVICE_BUS_USERNAME}
+      - EventBusPassword=${ESHOPZERO_SERVICE_BUS_PASSWORD}
+      - ConnectionString=User ID=eshopzero;Password=7eeb43dedd28b53b69f7cd74505b3457;Server=postgresdata;Database=eshopzero.product;Integrated Security=true;Pooling=true
+      - PATH_BASE=/product-api
+    ports:
+      - "5203:80"
+

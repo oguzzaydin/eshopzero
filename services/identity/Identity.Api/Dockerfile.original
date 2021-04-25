@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS publish
+WORKDIR /src
+EXPOSE 80
+
+COPY ["services/identity/Identity.Api/Identity.Api.csproj", "services/identity/Identity.Api/"]
+RUN dotnet restore "services/identity/Identity.Api/Identity.Api.csproj" --runtime alpine-x64
+COPY . .
+WORKDIR "/src/services/identity/Identity.Api"
+
+RUN dotnet publish "Identity.Api.csproj" -c Release -o /app/publish \
+  --no-restore \
+  --runtime alpine-x64 \
+  --self-contained true \
+  /p:PublishTrimmed=true \
+  /p:PublishSingleFile=true
+
+FROM mcr.microsoft.com/dotnet/runtime-deps:5.0-alpine AS final  
+
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["./Identity.Api"]

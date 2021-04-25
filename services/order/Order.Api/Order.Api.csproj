@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +13,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="5.0.1" />
     <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="EFCore.NamingConventions" Version="5.0.2" />
     <PackageReference Include="FluentValidation" Version="10.0.4" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
@@ -24,6 +28,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.5.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Http" Version="7.2.0" />
@@ -35,14 +40,13 @@
   <ItemGroup>
     <Folder Include="Application\Commands\" />
     <Folder Include="Application\DomainEventHandlers\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Domain\Events\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\lib\core\Zero.Core\Zero.Core.csproj" />
+    <ProjectReference Include="..\..\..\lib\eventbus\Zero.Eventbus.RabbitMQ\Zero.Eventbus.RabbitMQ.csproj" />
     <ProjectReference Include="..\..\..\lib\eventbus\Zero.EventBus\Zero.EventBus.csproj" />
-    <ProjectReference Include="..\..\..\lib\Zero.Core\Zero.Core.csproj" />
+    <ProjectReference Include="..\..\..\lib\eventbus\Zero.Eventlog\Zero.Eventlog.csproj" />
   </ItemGroup>
 
 </Project>
