@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Order.Api.Application.Commands;
+using Order.Api.Application.Queries;
 using Zero.EventBus.Extensions;
 
 namespace Order.Api.Controllers
@@ -22,14 +24,23 @@ namespace Order.Api.Controllers
     {
         private readonly ILogger<OrderController> _logger;
         private readonly IMediator _mediator;
+        private readonly IOrderQuery _orderQuery;
 
-        public OrderController(ILogger<OrderController> logger, IMediator mediator)
+        public OrderController(ILogger<OrderController> logger, IMediator mediator, IOrderQuery orderQuery)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger)); ;
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator)); ;
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _orderQuery = orderQuery ?? throw new ArgumentNullException(nameof(orderQuery)); ;
+            ;
         }
-        
-        [HttpPost]
+
+        [HttpGet(Name = "GetOrders")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(typeof(IEnumerable<OrderModel>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<OrderModel>>> Get() =>
+            Ok(await _orderQuery.GetOrdersAsync());
+
+        [HttpPost(Name = "CreateOrderCommandHandler")]
         [MapToApiVersion("1.0")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<bool>> Create([FromBody] CreateOrderCommand command)
@@ -48,5 +59,7 @@ namespace Order.Api.Controllers
 
             return Ok();
         }
+
+     
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO.Compression;
+using Product.Api.Application.Hubs;
 using Product.Api.Web.Extensions;
 using Zero.Eventbus.RabbitMQ;
 using Zero.Eventlog;
@@ -48,8 +49,8 @@ namespace Product.Api
                 .AddCustomAuthentications(Configuration)
                 .AddData(Configuration)
                 .AddStart()
-                .AddEventLog(Configuration, "Product.Api");
-
+                .AddEventLog(Configuration, "Product.Api")
+                .AddSignalR(o => o.EnableDetailedErrors = true);
 
             services.Configure<GzipCompressionProviderOptions>(options =>
             {
@@ -100,6 +101,7 @@ namespace Product.Api
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapHub<ProductHub>("/hub");
                 endpoints.MapHealthChecks("/hc", new HealthCheckOptions
                 {
                     Predicate = _ => true,

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Gateway.Controllers
+namespace Product.Api.Controllers
 {
     public class HomeController : Controller
     {

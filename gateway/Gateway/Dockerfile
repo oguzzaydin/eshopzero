@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["gateway/Gateway/Gateway.csproj", "gateway/Gateway/"]
+COPY ["lib/core/Zero.Core/Zero.Core.csproj", "lib/core/Zero.Core/"]
 RUN dotnet restore "gateway/Gateway/Gateway.csproj"
 COPY . .
 WORKDIR "/src/gateway/Gateway"

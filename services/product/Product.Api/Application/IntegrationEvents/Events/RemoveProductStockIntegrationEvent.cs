@@ -5,11 +5,13 @@ namespace Product.Api.Application.IntegrationEvents.Events
 {
     public record RemoveProductStockIntegrationEvent : IntegrationEvent
     {
+        public int UserId { get; }
         public List<OrderItemIntegrationEventModel> OrderItems { get; }
 
-        public RemoveProductStockIntegrationEvent(List<OrderItemIntegrationEventModel> orderItems)
+        public RemoveProductStockIntegrationEvent(List<OrderItemIntegrationEventModel> orderItems, int userId)
         {
             OrderItems = orderItems;
+            UserId = userId;
         }
     }
 

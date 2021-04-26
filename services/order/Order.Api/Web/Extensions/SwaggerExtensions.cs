@@ -16,7 +16,7 @@ namespace Order.Api.Web.Extensions
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Version = "1",
+                    Version = "1.0",
                     Title = "Order API",
                     Description = "This api provides infrastructure for order services",
                 });

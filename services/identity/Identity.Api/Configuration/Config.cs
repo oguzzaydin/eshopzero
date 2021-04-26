@@ -26,6 +26,7 @@ namespace Identity.Api.Configuration
                         JwtClaimTypes.Subject,
                         JwtClaimTypes.Email,
                         JwtClaimTypes.Name,
+                        JwtClaimTypes.GivenName,
                         JwtClaimTypes.Id
                     }
                 },
@@ -39,6 +40,7 @@ namespace Identity.Api.Configuration
                         JwtClaimTypes.Subject,
                         JwtClaimTypes.Email,
                         JwtClaimTypes.Name,
+                        JwtClaimTypes.GivenName,
                         JwtClaimTypes.Id
                     }
                 },
@@ -52,6 +54,7 @@ namespace Identity.Api.Configuration
                         JwtClaimTypes.Subject,
                         JwtClaimTypes.Email,
                         JwtClaimTypes.Name,
+                        JwtClaimTypes.GivenName,
                         JwtClaimTypes.Id
                     }
                 }

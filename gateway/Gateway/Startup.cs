@@ -1,13 +1,18 @@
 using Gateway.Extensions;
+using Gateway.Filters;
+using Gateway.Services;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Zero.Core.Sessions;
+using ISession = Zero.Core.Sessions.ISession;
 
 namespace Gateway
 {
@@ -27,6 +32,8 @@ namespace Gateway
             services.AddSelfSwagger(Configuration);
             services.AddCustomAuthentication(Configuration);
             services.AddCustomHealthCheck(Configuration);
+
+            services.AddApplicationServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -67,8 +74,16 @@ namespace Gateway
 
             app.UseOcelot();
         }
+    }
 
-
-
+    public static class CustomExtensions
+    {
+        public static void AddApplicationServices(this IServiceCollection services)
+        {
+            services.AddScoped<ISession, ZeroSession>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpClient<IOrderService, OrderService>();
+            services.AddHttpClient<IProductService, ProductService>();
+        }
     }
 }

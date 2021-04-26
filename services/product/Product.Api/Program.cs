@@ -1,17 +1,17 @@
+using System;
+using System.IO;
+using System.Net;
+using System.Text.Json;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Product.Api;
-using Serilog;
-using System;
-using System.IO;
-using System.Net;
-using System.Text.Json;
 using Product.Api.Infrastructure;
 using Product.Api.Infrastructure.Seed;
 using Product.Api.Web.Extensions;
+using Serilog;
 
 var configuration = GetConfiguration();
 
@@ -103,8 +103,11 @@ int GetDefinedPort(IConfiguration config)
     return port;
 }
 
-public static class Program
+namespace Product.Api
 {
-    public static readonly string Namespace = typeof(Startup).Namespace;
-    public static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+    public static class Program
+    {
+        public static readonly string Namespace = typeof(Startup).Namespace;
+        public static readonly string AppName = Namespace.Substring(Namespace.LastIndexOf('.', Namespace.LastIndexOf('.') - 1) + 1);
+    }
 }

@@ -12,7 +12,7 @@ namespace Zero.Core.Sessions
         IEnumerable<string> Audiences { get; }
         string ClientId { get; }
         string Name { get; }
-        //Token Token { get; }
+        Token Token { get; }
         IEnumerable<string> Scopes { get; }
         string FirstName { get; }
         string LastName { get; }

@@ -31,6 +31,8 @@ services:
       - ProductUrlHC=http://product-api/hc
       - OrderUrlHC=http://order-api/hc
       - IdentityUrlHC=http://identity-api/hc
+      - OrderApiClient=http://order-api
+      - ProductApiClient=http://product-api
       - PORT=80
       - PATH_BASE=/gateway      
     ports:

@@ -11,7 +11,7 @@ namespace Zero.Eventlog
 {
     public static class EventLogExtensions
     {
-        public static void AddEventLog(this IServiceCollection services, IConfiguration configuration, string assembly)
+        public static IServiceCollection AddEventLog(this IServiceCollection services, IConfiguration configuration, string assembly)
         {
             services.AddDbContext<EventLogContext, EventLogContext>(options =>
             {
@@ -25,6 +25,8 @@ namespace Zero.Eventlog
                         DbContextLoggerOptions.SingleLine | DbContextLoggerOptions.UtcTime);
             }, ServiceLifetime.Transient);
             services.AddTransient<IEventLogService, EventLogService>();
+
+            return services;
         }
 
         public static void UseEventLog(this IApplicationBuilder app)
