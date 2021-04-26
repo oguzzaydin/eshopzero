@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,13 @@ namespace Product.Api.Application.Queries
                 .FirstOrDefaultAsync();
 
             return MapToProductModel(product);
+        }
+
+        public async Task<IEnumerable<ProductModel>> GetProductsAsync()
+        {
+            var products = await _productRepository.Queryable().Include(x => x.ProductType).ToListAsync();
+
+            return products.Select(MapToProductModel);
         }
 
         private ProductModel MapToProductModel(Domain.Product product)

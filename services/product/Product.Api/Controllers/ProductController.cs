@@ -29,5 +29,11 @@ namespace Product.Api.Controllers
         [ProducesResponseType(typeof(ProductModel), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ProductModel>> Product(int id) =>
             Ok(await _productQuery.GetProductAsync(id));
+
+        [HttpGet( Name = "GetProducts")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(typeof(ProductModel), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<ProductModel>> ProductsTask() =>
+            Ok(await _productQuery.GetProductsAsync());
     }
 }

@@ -20,9 +20,8 @@ namespace Order.Api.Application.Queries
             _session = session ?? throw new ArgumentNullException(nameof(session));
         }
 
-        public async Task<IEnumerable<OrderModel>> GetOrdersAsync()
-        {
-            var test = await _orderRepository.Queryable(x => x.UserId == _session.Id).Include(x => x.Items)
+        public async Task<IEnumerable<OrderModel>> GetOrdersAsync() =>
+            await _orderRepository.Queryable(x => x.UserId == _session.Id).Include(x => x.Items)
                 .Select(order => new OrderModel
                 {
                     Id = order.Id,
@@ -33,17 +32,5 @@ namespace Order.Api.Application.Queries
                         Quantity = item.Quantity
                     }).ToList()
                 }).ToListAsync();
-            return await _orderRepository.Queryable(x => x.UserId == _session.Id).Include(x => x.Items)
-                .Select(order => new OrderModel
-                {
-                    Id = order.Id,
-                    MailAddress = _session.MailAddress,
-                    OrderItems = order.Items.Select(item => new OrderItemModel
-                    {
-                        ProductId = item.ProductId,
-                        Quantity = item.Quantity
-                    }).ToList()
-                }).ToListAsync();
-        }
     }
 }
