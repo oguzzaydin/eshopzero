@@ -28,7 +28,6 @@ namespace Gateway.Controllers
 
         [HttpGet(Name = "GetOrders")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
-        [ResponseCache(Duration = 100)]
         public async Task<OkObjectResult> GetOrders()
         {
             var orders = await _orderService.GetOrders();

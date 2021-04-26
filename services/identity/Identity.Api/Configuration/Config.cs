@@ -1,6 +1,7 @@
 ﻿using IdentityModel;
 using IdentityServer4.Models;
 using System.Collections.Generic;
+using IdentityServer4;
 
 namespace Identity.Api.Configuration
 {
@@ -16,7 +17,7 @@ namespace Identity.Api.Configuration
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
             {
-                new()
+            new()
                 {
                     Name = "gateway",
                     DisplayName = "Gateway",
@@ -57,6 +58,20 @@ namespace Identity.Api.Configuration
                         JwtClaimTypes.GivenName,
                         JwtClaimTypes.Id
                     }
+                },
+                new()
+                {
+                    Name = "client",
+                    DisplayName = "Web Client",
+                    Scopes = {"gateway","product", "order", "client"},
+                    UserClaims =
+                    {
+                        JwtClaimTypes.Subject,
+                        JwtClaimTypes.Email,
+                        JwtClaimTypes.Name,
+                        JwtClaimTypes.GivenName,
+                        JwtClaimTypes.Id
+                    }
                 }
             };
 
@@ -66,8 +81,9 @@ namespace Identity.Api.Configuration
                 new("order", "Order Service"),
                 new("product", "Product Service"),
                 new("gateway", "Gateway"),
+                new("client", "Web Client"),
             };
-        
+
         public static IEnumerable<Client> GetClients(Dictionary<string, string> clientsUrl)
         {
             return new List<Client>
@@ -121,7 +137,26 @@ namespace Identity.Api.Configuration
                         "order",
                         "product"
                     }
-                }
+                },
+                new()
+                {
+                    ClientId = "client",
+                    ClientName = "eShopZero OpenId Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris =           { $"{clientsUrl["WebClient"]}/signin-callback.html" },
+                    RequireConsent = false,
+                    PostLogoutRedirectUris = { $"{clientsUrl["WebClient"]}/index.html" },
+                    AllowedCorsOrigins =     { $"{clientsUrl["WebClient"]}", "http://localhost:3000" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "order",
+                        "product",
+                        "gateway"
+                    },
+                },
             };
         }
     }

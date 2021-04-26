@@ -21,6 +21,8 @@ namespace Identity.Api.Data.Seed
             clientUrls.Add("OrderApi", configuration.GetValue<string>("OrderApiClient"));
             clientUrls.Add("ProductApi", configuration.GetValue<string>("ProductApiClient"));
             clientUrls.Add("Gateway", configuration.GetValue<string>("GatewayClient"));
+            clientUrls.Add("WebClient", configuration.GetValue<string>("WebClient"));
+
 
             if (!context.Clients.Any())
             {

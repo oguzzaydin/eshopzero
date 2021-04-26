@@ -54,6 +54,14 @@ services:
       - postgresdata 
       - rabbitmq
 
+  # client:
+  #   image: ${DOCKER_REGISTRY-}eshopzero/client:${TAG:-latest}
+  #   build:
+  #     context: .
+  #     dockerfile: client/Dockerfile
+  #   depends_on:
+  #       - gateway  
+
 volumes:
   pgdata:
     driver: local
