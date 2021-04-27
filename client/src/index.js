@@ -9,25 +9,24 @@ import { LogoutCallback } from "./pages/account/LogoutCallback";
 import { SilentRenew } from "./pages/account/SilentRenew";
 import { Register } from "./pages/account/Register";
 import { PrivateRoute } from "./PrivateRoute";
-import Product from "./pages/product/Product";
-import Login from "./pages/account/Login";
+import Product from "./pages/product/ProductItem";
 import ProductList from "./pages/product/ProductList";
-
-
-
+import BaseLayout from "./pages/base/Layout";
+import "antd/dist/antd.css"
+import Basket from "./pages/basket/Basket";
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/signin-callback" component={Callback} />
-          <Route exact path="/logout" component={Logout} />
-          <Route exact path="/logout/callback" component={LogoutCallback}/>
-          <Route exact path="/:lng(en|es|de|fr|pt|it)/register/:form?" component={Register} />
-          <Route exact path="/silentrenew" component={SilentRenew} />
-          <PrivateRoute path="/products" component={Product} />
-          <PrivateRoute path="/" component={ProductList} />
-
+            <Route exact path="/signin-callback" component={Callback} />
+            <Route exact path="/logout" component={Logout} />
+            <Route exact path="/logout/callback" component={LogoutCallback} />
+            <Route exact path="/silentrenew" component={SilentRenew} />
+          <BaseLayout>
+            <PrivateRoute exact path="/" component={ProductList} />
+            <PrivateRoute exact path="/basket" component={Basket} />
+          </BaseLayout>
         </Switch>
       </BrowserRouter>
     </AuthProvider>

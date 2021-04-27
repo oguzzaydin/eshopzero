@@ -34,6 +34,16 @@ namespace Gateway
             services.AddCustomHealthCheck(Configuration);
 
             services.AddApplicationServices();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -55,6 +65,7 @@ namespace Gateway
             app.UseResponseCompression();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

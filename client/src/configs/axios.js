@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getServiceOrigin } from "./origins";
 
-const redirectToLogin = () => (window.location.href = "/login");
+const redirectToLogin = () => (window.location.href = "/");
 const client = axios.create({
   baseURL: getServiceOrigin(),
   timeout: 50000,

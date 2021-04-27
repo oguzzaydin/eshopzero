@@ -81,7 +81,6 @@ namespace Identity.Api.Configuration
                 new("order", "Order Service"),
                 new("product", "Product Service"),
                 new("gateway", "Gateway"),
-                new("client", "Web Client"),
             };
 
         public static IEnumerable<Client> GetClients(Dictionary<string, string> clientsUrl)
@@ -130,7 +129,7 @@ namespace Identity.Api.Configuration
 
                     AllowAccessTokensViaBrowser = true,
                     AllowedGrantTypes = GrantTypes.Implicit,
-
+                    AllowedCorsOrigins = new List<string> { "http://localhost:4000" },
                     AllowedScopes =
                     {
                         "gateway",
@@ -144,9 +143,9 @@ namespace Identity.Api.Configuration
                     ClientName = "eShopZero OpenId Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-                    RedirectUris =           { $"{clientsUrl["WebClient"]}/signin-callback.html" },
+                    RedirectUris =           { $"{clientsUrl["WebClient"]}/signin-callback" },
                     RequireConsent = false,
-                    PostLogoutRedirectUris = { $"{clientsUrl["WebClient"]}/index.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["WebClient"]}/" },
                     AllowedCorsOrigins =     { $"{clientsUrl["WebClient"]}", "http://localhost:3000" },
                     AllowedScopes =
                     {
