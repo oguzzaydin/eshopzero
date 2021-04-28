@@ -81,10 +81,10 @@ services:
     ports:
       - "5203:80"
   
-  # client:
-  #   ports:
-  #     - 4000:80
-  #   volumes:
-  #     - '.:/app'
-  #     - '/app/node_modules'     
+  client:
+    ports:
+      - 4000:80
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'     
 
