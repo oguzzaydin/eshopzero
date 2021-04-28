@@ -57,6 +57,7 @@ The user adds their products to the basket during shopping and creates an order.
 - Ocelot
 - PostgreSQL
 - Entity Framework Core
+- Ant Design
 
 # Screenshots
 
@@ -77,6 +78,18 @@ The user adds their products to the basket during shopping and creates an order.
 ## Identity Server
 
 ![](img/identity-screenshot.png)
+
+## RabbitMQ
+
+![](img/rabbitmq-screenshot.png)
+
+## Seq
+
+![](img/seq-screenhot.png)
+
+## Redis
+
+![](img/redis-screenshot.png)
 
 ## Client App
 

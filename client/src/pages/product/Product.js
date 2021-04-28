@@ -7,7 +7,7 @@ import ProductService from "./ProductService";
 const { Title } = Typography;
 const productService = new ProductService();
 
-function ProductList({ match }) {
+function Product({ match }) {
   const [ready, setReady] = useState(false);
   const [products, setProducts] = useState([]);
   let [basket, setBasket] = useState([]);
@@ -52,7 +52,7 @@ function ProductList({ match }) {
   );
 }
 
-export default ProductList;
+export default Product;
 
 const ProductContainer = styled.div`
   margin-top: 30px;

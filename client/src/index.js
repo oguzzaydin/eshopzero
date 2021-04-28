@@ -7,7 +7,7 @@ import { Logout } from "./pages/account/Logout";
 import { LogoutCallback } from "./pages/account/LogoutCallback";
 import { SilentRenew } from "./pages/account/SilentRenew";
 import { PrivateRoute } from "./PrivateRoute";
-import ProductList from "./pages/product/ProductList";
+import Product from "./pages/product/Product";
 import BaseLayout from "./pages/base/Layout";
 import Basket from "./pages/basket/Basket";
 import { BasketProvider } from "./pages/basket/BasketContext";
@@ -16,7 +16,6 @@ import Order from "./pages/order/Order";
 import "antd/dist/antd.css";
 
 function App() {
-  console.log(process.env.REACT_APP_HOSTLOCAL)
   return (
     <AuthProvider>
       <BasketProvider>
@@ -27,7 +26,7 @@ function App() {
             <Route exact path="/logout/callback" component={LogoutCallback} />
             <Route exact path="/silentrenew" component={SilentRenew} />
             <BaseLayout>
-              <PrivateRoute exact path="/" component={ProductList} />
+              <PrivateRoute exact path="/" component={Product} />
               <PrivateRoute exact path="/basket" component={Basket} />
               <PrivateRoute exact path="/order" component={Order} />
             </BaseLayout>
