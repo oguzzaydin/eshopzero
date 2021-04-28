@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Layout, Typography, Row, Col, Badge, Avatar } from "antd";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  Layout,
+  Typography,
+  Row,
+  Col,
+  Badge,
+  Avatar,
+  Button,
+  Dropdown,
+} from "antd";
+import {
+  ShoppingCartOutlined,
+  UserOutlined,
+  DownOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { BasketContext } from "../basket/BasketContext";
+import ProfileMenu from "./ProfileMenu";
 
 const { Title, Text } = Typography;
 const { Header, Content, Footer } = Layout;
 
-function BaseLayout({ children, history }) {
+function BaseLayout({ children }) {
+  const { count } = useContext(BasketContext);
+
   const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log(history);
+  console.log(count);
   return (
     <Layout className="layout">
       <Header style={{ background: "#fff" }}>
@@ -25,7 +42,7 @@ function BaseLayout({ children, history }) {
           <Col span={4} offset={12}>
             <Row>
               <Col span={6} style={{ marginTop: "10px" }}>
-                <Badge count={5}>
+                <Badge count={count}>
                   <Link to="/basket">
                     <ShoppingCartOutlined style={{ fontSize: "35px" }} />
                   </Link>
@@ -33,9 +50,18 @@ function BaseLayout({ children, history }) {
               </Col>
               <Col span={18}>
                 <Avatar size={40} icon={<UserOutlined />} />
-                <Text style={{ marginLeft: "5px" }}>
-                  {user && user.profile.name}
-                </Text>
+
+                <ProfileDropdown
+                  overlay={ProfileMenu({
+                    // onSettingClick: settings,
+                    // onLogoutClick: logout,
+                  })}
+                  trigger={["click"]}
+                >
+                  <Button style={{ color: "black" }}>
+                    {user && user.profile.name} <DownOutlined />
+                  </Button>
+                </ProfileDropdown>
               </Col>
             </Row>
           </Col>
@@ -45,7 +71,7 @@ function BaseLayout({ children, history }) {
         <ContentWrapper>{children}</ContentWrapper>
       </Content>
       <Footer style={{ textAlign: "center" }}>
-        eShopZero 2021 Created by Oğuzhan Aydın
+        eShopZero @2021 Created by Oğuzhan Aydın
       </Footer>
     </Layout>
   );
@@ -60,19 +86,16 @@ const ContentWrapper = styled.div`
   background: #fff;
 `;
 
-// .site-layout-content {
-//     min-height: 280px;
-//     padding: 24px;
-//     background: #fff;
-//   }
-//   #components-layout-demo-top .logo {
-//     float: left;
-//     width: 120px;
-//     height: 31px;
-//     margin: 16px 24px 16px 0;
-//     background: rgba(255, 255, 255, 0.3);
-//   }
-//   .ant-row-rtl #components-layout-demo-top .logo {
-//     float: right;
-//     margin: 16px 0 16px 24px;
-//   }
+const ProfileDropdown = styled(Dropdown)`
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: gray;
+  &:hover,
+  &:focus,
+  &:active {
+    color: unset;
+  }
+  margin-right: 20px;
+  text-transform: capitalize;
+`;

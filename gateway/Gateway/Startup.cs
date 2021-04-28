@@ -59,7 +59,7 @@ namespace Gateway
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerForOcelot(Configuration, pathBase);
-            }
+            }   
 
             app.UseAuthentication();
             app.UseResponseCompression();

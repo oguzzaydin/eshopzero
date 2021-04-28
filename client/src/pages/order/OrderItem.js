@@ -1,7 +1,7 @@
 import React from "react";
 import { List, Avatar } from "antd";
 
-function BasketItem({ item }) {
+function OrderItem({item}) {
   return (
     <List.Item>
       <List.Item.Meta
@@ -10,10 +10,10 @@ function BasketItem({ item }) {
         description={item.product.description}
       />
       <div>
-        {item.quantity} x {item.product.price}
+        
       </div>
     </List.Item>
   );
 }
 
-export default BasketItem;
+export default OrderItem;

@@ -1,21 +1,37 @@
-import React from "react";
-import { List, Typography, Button } from "antd";
+import React, { useContext } from "react";
+import { List, Typography, Button, message } from "antd";
 import BasketItem from "./BasketItem";
+import { BasketContext } from "./BasketContext";
+import OrderService from "../order/OrderService";
 
 const { Title } = Typography;
 
+const orderService = new OrderService();
+
 const Basket = () => {
+  const { basket, count } = useContext(BasketContext);
+
+  const createOrder = () => {
+    orderService
+      .createOrder({items:[...basket]})
+      .then(() => message.success(`Sipariş başarıyla oluşturuldu.`))
+      .catch((error) => message.error(error.title));
+  };
+
   return (
     <>
-      <Title level={2}>Basket ({12})</Title>
+      <Title level={2}>Basket {count > 0 && `(${count})`} </Title>
+       
 
       <List
         itemLayout="horizontal"
-        dataSource={[{ title: "test" }, { title: "test" }, { title: "test" }]}
+        dataSource={basket}
         renderItem={(item) => <BasketItem item={item} />}
       />
+      <br />
+      <br />
 
-      <Button type="primary">Sepeti Onayla</Button>
+      {count > 0 && <Button type="primary" onClick={createOrder}>Sepeti Onayla</Button>}
     </>
   );
 };

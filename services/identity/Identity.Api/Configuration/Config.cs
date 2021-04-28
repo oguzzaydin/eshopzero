@@ -145,8 +145,8 @@ namespace Identity.Api.Configuration
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris =           { $"{clientsUrl["WebClient"]}/signin-callback" },
                     RequireConsent = false,
-                    PostLogoutRedirectUris = { $"{clientsUrl["WebClient"]}/" },
-                    AllowedCorsOrigins =     { $"{clientsUrl["WebClient"]}", "http://localhost:3000" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["WebClient"]}" },
+                    AllowedCorsOrigins =     { $"{clientsUrl["WebClient"]}"},
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,

@@ -10,6 +10,7 @@ const productService = new ProductService();
 function ProductList({ match }) {
   const [ready, setReady] = useState(false);
   const [products, setProducts] = useState([]);
+  let [basket, setBasket] = useState([]);
 
   useEffect(() => {
     getProducts();
@@ -23,14 +24,27 @@ function ProductList({ match }) {
   };
 
   return ready ? (
-    <Spin size="large" style={{position:'absolute', bottom:'50%', left:'50%', zIndex:'9999999'}} />
+    <Spin
+      size="large"
+      style={{
+        position: "absolute",
+        bottom: "50%",
+        left: "50%",
+        zIndex: "9999999",
+      }}
+    />
   ) : (
     <ProductContainer>
       <Title level={2}>Products</Title>
       <Row>
         {products.map((product) => (
           <Col key={product.id} span={4} style={{ marginTop: "30px" }}>
-            <ProductItem key={product.id} product={product} />
+            <ProductItem
+              key={product.id}
+              product={product}
+              basket={basket}
+              setBasket={setBasket}
+            />
           </Col>
         ))}
       </Row>

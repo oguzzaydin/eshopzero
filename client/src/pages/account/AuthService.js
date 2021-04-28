@@ -46,6 +46,7 @@ class AuthService {
   logout() {
     this.userManager.signoutRedirect().then(() => {
       localStorage.clear();
+      this.userManager.clearStaleState();
     });
   }
 
