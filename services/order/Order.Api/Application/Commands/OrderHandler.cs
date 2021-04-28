@@ -47,7 +47,7 @@ namespace Order.Api.Application.Commands
             await _orderRepository.InsertAsync(order);
 
             var items = order.Items.Select(x => new OrderItemIntegrationEventModel(x.ProductId, x.Quantity)).ToList();
-            var removeProductStockEvent = new RemoveProductStockIntegrationEvent(items, order.UserId);
+            var removeProductStockEvent = new RemoveProductStockIntegrationEvent(items, order.UserId, order.Id);
             _eventBus.Publish(removeProductStockEvent);
 
             return await _uow.SaveAsync(cancellationToken);
