@@ -1,4 +1,4 @@
-# .NET Microservices Sample Reference Application
+# .NET Microservices Sample Application
 
 Sample .NET 5 reference application, based on a simplified microservices architecture and Docker containers.
 
@@ -21,5 +21,37 @@ Web React : http://localhost:4000/
 
 Below are the other avenues to setup *eshopZero*.
 
+## Scenario
+
+The user adds their products to the basket during shopping and creates an order. Order API broadcasts order creation message to RabbitMQ. Product Api consumes this event. The ordered product quantity reduces the current stock.
+
 ## Docker Containers
 
+| Image   | Port  | Host   | 
+|---|---|---|
+|  eshopzero/client:latest  | 4000  | localhost  |
+|  eshopzero/gateway:dev |  5200 | localhost  |
+|  eshopzero/product-api:dev | 5203  | localhost  |
+|  eshopzero/order-api:dev | 5202  | localhost  |
+|  eshopzero/identity-api:dev | 5201  | localhost  |
+|  rabbitmq:3-management-alpine | 15672  | localhost  |
+|  datalust/seq:latest | 5340  | localhost  |
+|  postgres:latest | 5432  | localhost  |
+
+## Architecture Overview
+
+![](img/microservice-architecture.png)
+
+
+## Tech Stack
+
+- .Net 5
+- RabbitMQ
+- Serilog & Seq 
+- Event Source
+- CQRS && DDD
+- ReactJS
+- İdentity Server
+- Docker
+- Ocelot
+- PostgreSQL
