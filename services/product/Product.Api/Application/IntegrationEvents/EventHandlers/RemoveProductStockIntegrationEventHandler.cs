@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using Product.Api.Application.Hubs;
 using Product.Api.Application.IntegrationEvents.Events;
+using Product.Api.Application.Queries;
 using Product.Api.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Distributed;
-using Product.Api.Application.Queries;
 using Zero.Core.Extensions;
 using Zero.Core.Repositories;
 using Zero.Core.UnitOfWork;
@@ -25,14 +25,16 @@ namespace Product.Api.Application.IntegrationEvents.EventHandlers
         private readonly IRepository<Domain.Product> _productRepository;
         private readonly IUnitOfWork _uow;
         private readonly IDistributedCache _cache;
+        private readonly IEventBus _bus;
 
-        public RemoveProductStockIntegrationEventHandler(ILogger<RemoveProductStockIntegrationEventHandler> logger, IHubContext<ProductHub, IProductHub> productHub, IRepository<Domain.Product> productRepository, IUnitOfWork uow, IDistributedCache cache)
+        public RemoveProductStockIntegrationEventHandler(ILogger<RemoveProductStockIntegrationEventHandler> logger, IHubContext<ProductHub, IProductHub> productHub, IRepository<Domain.Product> productRepository, IUnitOfWork uow, IDistributedCache cache, IEventBus bus)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _productHub = productHub ?? throw new ArgumentNullException(nameof(productHub));
             _productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
             _uow = uow ?? throw new ArgumentNullException(nameof(uow));
             _cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
         #endregion
@@ -61,9 +63,9 @@ namespace Product.Api.Application.IntegrationEvents.EventHandlers
             catch (Exception ex)
             {
                 _logger.LogError("----- Error occured integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.Id, Program.AppName, @event);
+                _bus.Publish(new RemoveProductStockErrorIntegrationEvent(@event.OrderId));
                 await _productHub.Clients.Group(@event.UserId.ToString()).ProductStockChangedError(ex.Message);
             }
-
         }
     }
 }
