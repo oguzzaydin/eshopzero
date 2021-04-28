@@ -20,7 +20,6 @@ const Basket = ({ history }) => {
   useEffect(() => {
     connection.start().then(() => console.log("connected"));
     connection.on("ProductStockChanged", (result) => {
-      console.log(result);
       setReady(true);
       setShowResult(true);
       message.success(`Sipariş başarıyla oluşturuldu.`);

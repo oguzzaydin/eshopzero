@@ -6,20 +6,23 @@ import { BasketContext } from "../basket/BasketContext";
 const { Meta } = Card;
 const { Text } = Typography;
 
-const ProductItem = ({ product, basket, setBasket }) => {
-  let [quantity, setQuantity] = useState(0);
-  const { updateBasket } = useContext(BasketContext);
+const ProductItem = ({ product }) => {
+  const [quantity, setQuantity] = useState(0);
+  const { basket, updateBasket } = useContext(BasketContext);
 
   const increment = () => {
-    if (quantity >= product.availableStock) return;
-    quantity++;
-    setQuantity(quantity);
+    if (quantity >= product.availableStock) {
+      message.info("Stok bulunmamaktadır.");
+      return;
+    }
+    setQuantity((prev) => ++prev);
   };
 
   const discrement = () => {
-    if (quantity === 0) return;
-    quantity--;
-    setQuantity(quantity);
+    if (quantity === 0) {
+      return;
+    }
+    setQuantity((prev) => --prev);
   };
 
   const addBasket = (product) => {
@@ -32,9 +35,8 @@ const ProductItem = ({ product, basket, setBasket }) => {
       productId: product.id,
       quantity: quantity === 0 ? 1 : quantity,
     };
-    basket.push(newItem);
-    setBasket(basket);
-    updateBasket(basket);
+    let newBasket = [...basket, newItem];
+    updateBasket(newBasket);
     message.success(`${product.name} sepete başarıyla eklendi`);
   };
 

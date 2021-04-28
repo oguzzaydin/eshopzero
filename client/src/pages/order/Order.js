@@ -62,6 +62,7 @@ export default Order;
 
 const OrderContainer = styled.div`
   border: 1px solid rgb(240 242 245);
+  border-radius: 5px;
   padding: 5px;
   margin-bottom: 10px;
 `;

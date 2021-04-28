@@ -7,14 +7,13 @@ import ProductService from "./ProductService";
 const { Title } = Typography;
 const productService = new ProductService();
 
-function Product({ match }) {
+function Product() {
   const [ready, setReady] = useState(false);
   const [products, setProducts] = useState([]);
-  let [basket, setBasket] = useState([]);
 
   useEffect(() => {
     getProducts();
-  }, [match]);
+  }, []);
 
   const getProducts = async () => {
     setReady(true);
@@ -42,8 +41,6 @@ function Product({ match }) {
             <ProductItem
               key={product.id}
               product={product}
-              basket={basket}
-              setBasket={setBasket}
             />
           </Col>
         ))}

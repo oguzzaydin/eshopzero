@@ -3,19 +3,18 @@ import React, { createContext, useState } from "react";
 const BasketContext = createContext({ baskets: {} });
 
 function BasketProvider({ ...rest }) {
-  let [basket, setBaskets] = useState([]);
-  let [count, setCount] = useState(0);
+  const [basket, setBaskets] = useState([]);
+  const [count, setCount] = useState(0);
 
   return (
     <BasketContext.Provider
       value={{
         basket: basket || [],
-        count: basket.length,
+        count: count,
         resetCount: () => setCount(0),
         updateBasket: (value) => {
           setBaskets(value);
-          count++;
-          setCount(count);
+          setCount(prev => ++prev);
         },
       }}
     >

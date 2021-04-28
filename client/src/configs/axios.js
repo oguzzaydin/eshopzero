@@ -1,13 +1,16 @@
 import axios from "axios";
 import { getServiceOrigin } from "./origins";
 
-const redirectToLogin = () => (window.location.href = "/");
+const redirectToLogin = () => {
+  localStorage.clear();
+  window.location.href = "/";
+};
 const client = axios.create({
   baseURL: getServiceOrigin(),
   timeout: 50000,
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json"
+    Accept: "application/json",
   },
   paramsSerializer(params) {
     const searchParams = new URLSearchParams();
@@ -21,11 +24,11 @@ const client = axios.create({
         searchParams.append(key, param);
     }
     return searchParams.toString();
-  }
+  },
 });
 
 client.interceptors.request.use(
-  async config => {
+  async (config) => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user && user.access_token)
@@ -33,16 +36,17 @@ client.interceptors.request.use(
     } catch {}
     return config;
   },
-  error => {
+  (error) => {
     Promise.reject(error);
   }
 );
 client.interceptors.response.use(
-  response => response,
-  error => {
-    if (error.response && error.response.status === 401) 
-        redirectToLogin()
-    return Promise.reject(error)
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      redirectToLogin();
+    }
+    return Promise.reject(error);
   }
 );
-export default client
+export default client;
