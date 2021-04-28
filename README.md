@@ -57,3 +57,36 @@ The user adds their products to the basket during shopping and creates an order.
 - Ocelot
 - PostgreSQL
 - Entity Framework Core
+
+# Screenshots
+
+![](img/order-api-screenshot.png)
+
+## Order Api
+
+![](img/order-api-screenshot.png)
+
+## Product Api
+
+![](img/product-api-screenshot.png)
+
+## Gateway
+
+![](img/gateway-screenshot.png)
+
+## Identity Server
+
+![](img/identity-screenshot.png)
+
+## Client App
+
+#### Home Page
+![](img/client-screenshot-3.png)
+<br/>
+#### Basket Page
+![](img/client-screenshot-2.png)
+<br/>
+
+#### Order Page
+![](img/client-screenshot-1.png)
+
