@@ -61,8 +61,6 @@ The user adds their products to the basket during shopping and creates an order.
 
 # Screenshots
 
-![](img/order-api-screenshot.png)
-
 ## Order Api
 
 ![](img/order-api-screenshot.png)
