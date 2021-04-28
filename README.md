@@ -9,8 +9,7 @@ Sample .NET 5 reference application, based on a simplified microservices archite
 Make sure you have install and configured docker in your environment. After that, you can run the below commands from the **/** directory and get started with the `eShopZero` immediately.
 
 ```powershell
-docker-compose build
-docker-compose up
+docker-compose up --build
 ```
 
 You should be able to browse different components of the application by using the below URLs :
@@ -37,17 +36,18 @@ The user adds their products to the basket during shopping and creates an order.
 |  rabbitmq:3-management-alpine | 15672  | localhost  |
 |  datalust/seq:latest | 5340  | localhost  |
 |  postgres:latest | 5432  | localhost  |
+|  redis:alpine | 6379  | localhost  |
 
 ## Architecture Overview
 
 ![](img/microservice-architecture.png)
-
 
 ## Tech Stack
 
 - .Net 5
 - RabbitMQ
 - Serilog & Seq 
+- Redis
 - Event Source
 - CQRS && DDD
 - ReactJS
@@ -55,3 +55,4 @@ The user adds their products to the basket during shopping and creates an order.
 - Docker
 - Ocelot
 - PostgreSQL
+- Entity Framework Core

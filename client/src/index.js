@@ -16,6 +16,7 @@ import Order from "./pages/order/Order";
 import "antd/dist/antd.css";
 
 function App() {
+  console.log(process.env.REACT_APP_HOSTLOCAL)
   return (
     <AuthProvider>
       <BasketProvider>

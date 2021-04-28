@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Order.Api;
+using Order.Api.Infrastructure;
+using Order.Api.Web.Extensions;
 using Serilog;
 using System;
 using System.IO;
 using System.Net;
 using System.Text.Json;
-using Autofac.Extensions.DependencyInjection;
-using Order.Api.Infrastructure;
-using Order.Api.Web.Extensions;
+using Zero.Eventlog;
 
 var configuration = GetConfiguration();
 
@@ -24,7 +24,8 @@ try
     var host = CreateHostBuilder(args);
 
     Log.Information("Applying migrations ({ApplicationContext})...", Program.AppName);
-    host.MigrateDbContext<OrderDbContext>((_, _) => { });
+    host.MigrateDbContext<OrderDbContext>((_, _) => { })
+        .MigrateDbContext<EventLogContext>((_, _) => { });
 
     Log.Information("Starting web host ({ApplicationContext})...", Program.AppName);
 

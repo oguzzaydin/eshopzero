@@ -12,6 +12,7 @@ using Product.Api.Infrastructure;
 using Product.Api.Infrastructure.Seed;
 using Product.Api.Web.Extensions;
 using Serilog;
+using Zero.Eventlog;
 
 var configuration = GetConfiguration();
 
@@ -29,7 +30,7 @@ try
         new ProductDbContextSeed()
             .SeedAsync(context, configuration)
             .Wait();
-    });
+    }).MigrateDbContext<EventLogContext>((_, _) => { });
 
     Log.Information("Starting web host ({ApplicationContext})...", Program.AppName);
 

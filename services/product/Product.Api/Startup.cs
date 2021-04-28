@@ -13,6 +13,7 @@ using System;
 using System.IO.Compression;
 using Product.Api.Application.Hubs;
 using Product.Api.Web.Extensions;
+using StackExchange.Redis;
 using Zero.Eventbus.RabbitMQ;
 using Zero.Eventlog;
 
@@ -49,8 +50,17 @@ namespace Product.Api
                 .AddCustomAuthentications(Configuration)
                 .AddData(Configuration)
                 .AddStart()
-                .AddEventLog(Configuration, "Product.Api")
-                .AddSignalR(o => o.EnableDetailedErrors = true);
+                .AddEventLog(Configuration, "Product.Api");
+
+            services.AddSignalR(o => o.EnableDetailedErrors = true).AddStackExchangeRedis(x =>
+            {
+                x.Configuration.EndPoints.Add(Configuration["RedisHost"], 6379);
+            });
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration["RedisHost"];
+            });
 
             services.Configure<GzipCompressionProviderOptions>(options =>
             {

@@ -7,6 +7,10 @@ services:
   rabbitmq:
     image: rabbitmq:3-management-alpine
     hostname: rabbit
+  
+  redis:
+    image: redis:alpine
+    restart: always
 
   postgresdata:
     image: postgres:latest
