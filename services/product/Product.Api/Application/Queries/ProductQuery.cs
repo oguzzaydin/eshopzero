@@ -27,7 +27,7 @@ namespace Product.Api.Application.Queries
 
         public async Task<IEnumerable<ProductModel>> GetProductsAsync()
         {
-            var products = await _productRepository.Queryable().Include(x => x.ProductType).ToListAsync();
+            var products = await _productRepository.Queryable().Include(x => x.ProductType).OrderByDescending(x => x.Id).ToListAsync();
 
             return products.Select(MapToProductModel);
         }

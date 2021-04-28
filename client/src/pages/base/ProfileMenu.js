@@ -1,17 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
-import {
-  UserOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { UnorderedListOutlined, LogoutOutlined } from "@ant-design/icons";
 
 const ProfileMenu = () => {
   return (
     <Menu>
       <Menu.Item key="1">
         <Link to="/order">
-          <UserOutlined />
+          <UnorderedListOutlined />
           Siparişlerim
         </Link>
       </Menu.Item>

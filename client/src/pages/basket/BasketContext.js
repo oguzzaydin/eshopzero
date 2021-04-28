@@ -11,6 +11,7 @@ function BasketProvider({ ...rest }) {
       value={{
         basket: basket || [],
         count: basket.length,
+        resetCount: () => setCount(0),
         updateBasket: (value) => {
           setBaskets(value);
           count++;

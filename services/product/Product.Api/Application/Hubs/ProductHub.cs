@@ -16,12 +16,12 @@ namespace Product.Api.Application.Hubs
     {
         public override async Task OnConnectedAsync()
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, Context.UserIdentifier ?? string.Empty);
+            await Groups.AddToGroupAsync(Context.ConnectionId, Context?.User?.FindFirst("sub")?.Value);
             await base.OnConnectedAsync();
         }
         public override async Task OnDisconnectedAsync(Exception ex)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, Context.UserIdentifier ?? string.Empty);
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, Context?.User?.FindFirst("sub")?.Value);
             await base.OnDisconnectedAsync(ex);
         }
     }
