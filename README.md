@@ -17,12 +17,13 @@ You should be able to browse different components of the application by using th
 ```
 Web React : http://localhost:4000/
 ```
-
-Below are the other avenues to setup *eshopZero*.
-
 ## Scenario
 
 The user adds their products to the basket during shopping and creates an order. Order API broadcasts order creation message to RabbitMQ. Product Api consumes this event. The ordered product quantity reduces the current stock.
+
+## Create Order Scenario
+
+![](img/create-order-screenshot.png)
 
 ## Docker Containers
 
