@@ -136,7 +136,11 @@ namespace Order.Api.Web.Extensions
                 .AddCheck("self", () => HealthCheckResult.Healthy())
                 .AddNpgSql(configuration["ConnectionString"],
                     name: "OrderDB-check",
-                    tags: new[] { "OrderDB" });
+                    tags: new[] { "OrderDB" })
+                .AddRabbitMQ(
+                    $"amqp://{configuration["EventBusConnection"]}",
+                    name: "order-rabbitmqbus-check",
+                    tags: new[] { "rabbitmqbus" }); 
 
             return services;
         }

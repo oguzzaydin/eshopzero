@@ -61,6 +61,9 @@ The user adds their products to the basket during shopping and creates an order.
 
 # Screenshots
 
+## Healthcheck UI
+![](img/healtcheck-screenshot.png)
+
 ## Order Api
 
 ![](img/order-api-screenshot.png)

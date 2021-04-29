@@ -64,6 +64,7 @@ services:
       - PORT=80
       - IdentityUrl=http://identity-api
       - IdentityUrlExternal=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5201
+      - EventBusConnection=rabbitmq 
       - EventBusUserName=${ESHOPZERO_SERVICE_BUS_USERNAME}
       - EventBusPassword=${ESHOPZERO_SERVICE_BUS_PASSWORD}
       - ConnectionString=User ID=eshopzero;Password=7eeb43dedd28b53b69f7cd74505b3457;Server=postgresdata;Database=eshopzero.order;Integrated Security=true;Pooling=true
@@ -78,6 +79,8 @@ services:
       - PORT=80
       - IdentityUrl=http://identity-api
       - IdentityUrlExternal=http://${ESHOPZERO_EXTERNAL_DNS_NAME_OR_IP}:5201
+      - RedisConnection=redis
+      - EventBusConnection=rabbitmq 
       - EventBusUserName=${ESHOPZERO_SERVICE_BUS_USERNAME}
       - EventBusPassword=${ESHOPZERO_SERVICE_BUS_PASSWORD}
       - ConnectionString=User ID=eshopzero;Password=7eeb43dedd28b53b69f7cd74505b3457;Server=postgresdata;Database=eshopzero.product;Integrated Security=true;Pooling=true

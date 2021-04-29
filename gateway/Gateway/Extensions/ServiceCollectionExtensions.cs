@@ -43,13 +43,19 @@ namespace Gateway.Extensions
 
         public static void AddCustomHealthCheck(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddHealthChecksUI(setup => setup.DisableDatabaseMigrations())
-                .AddInMemoryStorage(); 
             services.AddHealthChecks()
                 .AddCheck("self", () => HealthCheckResult.Healthy())
                 .AddUrlGroup(new Uri(configuration["OrderUrlHC"]), name: "orderapi-check", tags: new[] { "orderapi" })
                 .AddUrlGroup(new Uri(configuration["IdentityUrlHC"]), name: "identityapi-check", tags: new[] { "identityapi" })
                 .AddUrlGroup(new Uri(configuration["ProductUrlHC"]), name: "productapi-check", tags: new[] { "productapi" });
+
+            services.AddHealthChecksUI(setupSettings: setup =>
+            {
+                setup.AddHealthCheckEndpoint("Order Api Healthcheck", configuration["OrderUrlHC"]);
+                setup.AddHealthCheckEndpoint("Product Api Healthcheck", configuration["ProductUrlHC"]);
+                setup.AddHealthCheckEndpoint("Identity Healthcheck", configuration["IdentityUrlHC"]);
+                setup.DisableDatabaseMigrations();
+            }).AddInMemoryStorage();
         }
     }
 }

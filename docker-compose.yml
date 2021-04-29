@@ -29,6 +29,9 @@ services:
      - identity-api
      - order-api  
      - product-api
+     - postgresdata
+     - rabbitmq
+     - redis
 
   identity-api:
     image: ${DOCKER_REGISTRY-}eshopzero/identity-api:${TAG:-latest}
@@ -47,6 +50,7 @@ services:
       - identity-api 
       - postgresdata 
       - rabbitmq
+      - redis
 
   order-api:
     image: ${DOCKER_REGISTRY-}eshopzero/order-api:${TAG:-latest}

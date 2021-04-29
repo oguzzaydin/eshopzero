@@ -134,7 +134,14 @@ namespace Product.Api.Web.Extensions
                 .AddCheck("self", () => HealthCheckResult.Healthy())
                 .AddNpgSql(configuration["ConnectionString"],
                     name: "productDB-check",
-                    tags: new[] { "OrderDB" });
+                    tags: new[] { "OrderDB" })
+                .AddRabbitMQ(
+                    $"amqp://{configuration["EventBusConnection"]}",
+                    name: "order-rabbitmqbus-check",
+                    tags: new[] { "rabbitmqbus" })
+                .AddRedis(configuration["RedisConnection"], 
+                    name: "redis-check", 
+                    tags: new[] { "redis" });
 
             return services;
         }
