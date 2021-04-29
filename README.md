@@ -97,10 +97,11 @@ The user adds their products to the basket during shopping and creates an order.
 #### Home Page
 ![](img/client-screenshot-3.png)
 <br/>
-#### Basket Page
+#### Order Page
+
 ![](img/client-screenshot-2.png)
 <br/>
 
-#### Order Page
+#### Basket Page
 ![](img/client-screenshot-1.png)
 
