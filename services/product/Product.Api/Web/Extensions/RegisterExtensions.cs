@@ -137,7 +137,7 @@ namespace Product.Api.Web.Extensions
                     tags: new[] { "OrderDB" })
                 .AddRabbitMQ(
                     $"amqp://{configuration["EventBusConnection"]}",
-                    name: "order-rabbitmqbus-check",
+                    name: "product-rabbitmqbus-check",
                     tags: new[] { "rabbitmqbus" })
                 .AddRedis(configuration["RedisConnection"], 
                     name: "redis-check", 
