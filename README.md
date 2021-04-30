@@ -41,6 +41,8 @@ The user adds their products to the basket during shopping and creates an order.
 
 ## Architecture Overview
 
+This reference application is cross-platform on the server and client side thanks to .NET 5 services that can run on Linux or Windows containers depending on your Docker host, as well as any browser for client web applications. Architecture, a microservice oriented architecture implementation that includes multiple autonomous microservices (each has its own data / database) and different approaches (simple CRUD and DDD / CQRS patterns) within each microservice using Http as the communication protocol between client applications recommends. Supports asynchronous communication for propagating data updates between microservices and integration events and multiple services based on an Event Bus (RabbitMQ below) and other features described here.
+
 ![](img/microservice-architecture.png)
 
 ## Tech Stack
