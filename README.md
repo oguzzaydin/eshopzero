@@ -53,6 +53,7 @@ This reference application is cross-platform on the server and client side thank
 - Redis
 - Event Source
 - CQRS && DDD
+- MediaTR
 - ReactJS
 - İdentity Server
 - Docker
