@@ -38,6 +38,7 @@ The user adds their products to the basket during shopping and creates an order.
 |  datalust/seq:latest | 5340  | localhost  |
 |  postgres:latest | 5432  | localhost  |
 |  redis:alpine | 6379  | localhost  |
+|  portainer | 9000  | localhost  |
 
 ## Architecture Overview
 
@@ -61,8 +62,12 @@ This reference application is cross-platform on the server and client side thank
 - PostgreSQL
 - Entity Framework Core
 - Ant Design
+- Portainer
 
 # Screenshots
+
+## Portainer Container Management UI
+![](img/portainer-screenshot.png)
 
 ## Healthcheck UI
 ![](img/healtcheck-screenshot.png)

@@ -12,6 +12,14 @@ services:
     image: redis:alpine
     restart: always
 
+  portainer:
+    image: portainer/portainer-ce
+    restart: always
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data  
+
   postgresdata:
     image: postgres:latest
     restart: always
@@ -76,5 +84,7 @@ volumes:
   pgconf:
     driver: local
   pglog:
+    driver: local
+  portainer_data:  
     driver: local
       

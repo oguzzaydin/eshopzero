@@ -14,7 +14,12 @@ services:
 
   redis:
     ports:
-      - "6379:6379"   
+      - "6379:6379" 
+  
+  portainer:
+    ports:
+      - "8000:8000"
+      - "9000:9000"    
   
   postgresdata:
     environment:
