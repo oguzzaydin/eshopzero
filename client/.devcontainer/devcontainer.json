@@ -1,0 +1,47 @@
+{
+  "name": "eShopZero Client",
+  "dockerFile": "Dockerfile",
+  "runArgs": ["-v", "/var/run/docker.sock:/var/run/docker.sock"],
+  "settings": {
+    "workbench.iconTheme": "material-icon-theme",
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "bash"
+      },
+      "zsh": {
+        "path": "zsh"
+      },
+      "fish": {
+        "path": "fish"
+      },
+      "tmux": {
+        "path": "tmux",
+        "icon": "terminal-tmux"
+      },
+      "pwsh": {
+        "path": "pwsh",
+        "icon": "terminal-powershell"
+      }
+    }
+  },
+  "extensions": [
+    "steoates.autoimport",
+    "shakram02.bash-beautify",
+    "hookyqr.beautify",
+    "coenraads.bracket-pair-colorizer",
+    "msjsdiag.debugger-for-chrome",
+    "dsznajder.es7-react-js-snippets",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "knisterpeter.vscode-github",
+    "github.vscode-pull-request-github",
+    "eamodio.gitlens",
+    "wix.vscode-import-cost",
+    "xabikos.javascriptsnippets",
+    "pkief.material-icon-theme",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "xabikos.reactsnippets",
+    "tabnine.tabnine-vscode"
+  ]
+}

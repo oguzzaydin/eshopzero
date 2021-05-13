@@ -46,7 +46,6 @@ const Basket = ({ history }) => {
   return showResult ? (
     <Result
       status={error != null ? "error" : "success"}
-      s
       title={
         error != null
           ? "Error was occurred"
